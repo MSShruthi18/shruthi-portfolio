@@ -30,3 +30,62 @@ document.addEventListener("DOMContentLoaded", () => {
   document.addEventListener("DOMContentLoaded", () => {
     setInterval(changeText, 2500); // Change every 2.5 sec
   });
+
+function openPopup() {
+  document.getElementById("popup").style.display = "flex";
+  document.getElementById("name").value = "";
+}
+
+
+
+function goWhatsApp() {
+  let name = document.getElementById("name").value.trim();
+
+  if (name === "") {
+    alert("Enter your name bro 😄");
+    return;
+  }
+  let message = `Hi, my name is ${name}. I want to chat with you.`;
+  let url = "https://wa.me/917676841307?text=" + encodeURIComponent(message);
+  document.getElementById("name").value = "";
+  document.getElementById("popup").style.display = "none";
+  window.open(url, "_blank");
+}
+
+function openLinkedInPopup() {
+  document.getElementById("linkedinPopup").style.display = "flex";
+}
+
+function goLinkedIn() {
+  let name = document.getElementById("linkedinName").value;
+
+  if(name === "") {
+    alert("Enter your name bro ");
+    return;
+  }
+
+  // Replace with your LinkedIn profile link
+  let linkedInURL = "https://www.linkedin.com/in/msshruthi18/";
+
+  window.open(linkedInURL, "_blank");
+}
+
+function closePopup() {
+  document.getElementById("popup").style.display = "none";
+}
+
+function closeLinkedInPopup() {
+  document.getElementById("linkedinPopup").style.display = "none";
+}
+
+window.onclick = function(event) {
+  let popup = document.getElementById("popup");
+  let linkedinPopup = document.getElementById("linkedinPopup");
+
+  if (event.target === popup) {
+    popup.style.display = "none";
+  }
+  if (event.target === linkedinPopup) {
+    linkedinPopup.style.display = "none";
+  }
+}
