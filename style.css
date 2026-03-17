@@ -93,8 +93,8 @@ body.dark {
 
 /* KEEP IMAGE NORMAL */
 .profile-img {
-  width: 220px;
-  height: 220px;
+  width: 350px;
+  height: 350px;
   border-radius: 50%;
   object-fit: cover;
   position: relative;
@@ -651,6 +651,36 @@ body.dark {
   padding: 8px 15px;
   cursor: pointer;
 }
+.certificates-container {
+  overflow: hidden;
+  width: 100%;
+ 
+  padding: 20px 0;
+
+}
+
+.auto-scroll {
+  display: flex;
+  gap: 20px;
+  width: max-content;
+  animation: scrollLoop 25s linear infinite;
+}
+
+/* FIX CARD SIZE */
+.certificate-card {
+  min-width: 260px;
+  flex-shrink: 0;
+}
+
+/* 🔥 KEY FIX */
+@keyframes scrollLoop {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
 .linkedin-icon {
   position: fixed;
   bottom: 90px; 
@@ -763,7 +793,14 @@ body.dark {
     font-size: 12px;
   }
 
-
+@keyframes borderMove {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
+  }
+}
 
   /* REMOVE BIG LEFT PUSH */
   * {
