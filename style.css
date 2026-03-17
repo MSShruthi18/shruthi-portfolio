@@ -586,7 +586,7 @@ body.dark {
   font-size: 22px;
   cursor: pointer;
 }
-@media (max-width: 500px) {
+@media (max-width: 480px) {
 .hamburger {
     display: block;
   }
@@ -612,9 +612,8 @@ body.dark {
   }
 
   .profile-img {
-    width: 80%;
-    max-width: 220px;
-    height: auto;
+    width: 180%;
+    height: 180px;
   }
 
   /* SOCIAL */
