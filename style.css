@@ -586,7 +586,7 @@ body.dark {
   font-size: 22px;
   cursor: pointer;
 }
-@media (max-width: 480px) {
+@media (max-width: 450px) {
 .hamburger {
     display: block;
   }
