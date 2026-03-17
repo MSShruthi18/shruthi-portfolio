@@ -1,4 +1,6 @@
-:root {
+@media screen {
+  
+}:root {
   --bg-color: #f4f4f4;
   --text-color: #333;
   --card-bg: #ffffff;
@@ -568,7 +570,7 @@ body.dark {
 }
 .linkedin-icon {
   position: fixed;
-  bottom: 90px; /* above WhatsApp */
+  bottom: 90px; 
   right: 20px;
   background: #0077b5;
   color: white;
@@ -580,7 +582,7 @@ body.dark {
   box-shadow: 0 4px 10px rgba(0,0,0,0.3);
 }
 
-@media (max-width: 768px) {
+@media (max-width: 500px) {
 
   /* NAVBAR */
   .navbar {
