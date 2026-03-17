@@ -581,13 +581,21 @@ body.dark {
   width:30px;
   box-shadow: 0 4px 10px rgba(0,0,0,0.3);
 }
-
+.hamburger {
+  display: none;
+  font-size: 22px;
+  cursor: pointer;
+}
 @media (max-width: 500px) {
-
+.hamburger {
+    display: block;
+  }
   /* NAVBAR */
-  .navbar {
-    flex-direction: column;
-    align-items: center;
+  .nav-links {
+    flex-direction: row;        /* 👈 keep horizontal */
+    flex-wrap: wrap;            /* 👈 wrap to next line */
+    justify-content: center;
+    gap: 10px;
   }
 
   .nav-links {
