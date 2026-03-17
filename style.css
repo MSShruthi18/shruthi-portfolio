@@ -78,84 +78,63 @@ body.dark {
 .section {
   display: flex;
 }
-/* 📱 MOBILE FIX LAYER */
+/* 📱 PERFECT MOBILE FIX */
 @media (max-width: 768px) {
 
-  /* NAVBAR */
+  /* NAVBAR FIX */
   .navbar {
     flex-direction: column;
     align-items: center;
-    padding: 10px;
   }
 
   .nav-links {
-    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
     gap: 10px;
-    margin-left: 0 !important;
+    margin: 0 !important;
+    padding: 10px;
   }
 
-  /* HERO */
+  /* HERO FIX */
   .hero {
-    margin-top: 30px;
     text-align: center;
+    padding: 20px;
   }
 
   .profile-img {
-    width: 100%;
+    width: 80%;
     max-width: 220px;
-    height: auto;
-  }
-
-  /* SOCIAL */
-  .social-links {
-    margin-left: 0 !important;
-    text-align: center;
-  }
-
-  /* PROJECTS */
-  .projects-grid {
-    grid-template-columns: 1fr;
-    gap: 20px;
-  }
-
-  .project-card {
-    width: 100% !important;
-  }
-
-  .project-img {
-    width: 100%;
-    height: auto;
-  }
-
-  /* ACHIEVEMENTS */
-  #row1ach, #row2ach, #row3ach {
-    display: block;
-    float: none;
-    margin: 0;
-  }
-
-  .achcard {
-    width: 100%;
-    height: auto;
-  }
-
-  /* CERTIFICATES */
-  .certificates-container {
-    gap: 10px;
-  }
-
-  .certificate-card {
-    flex: 0 0 80%;
+    margin: auto;
   }
 
   /* TEXT FIX */
-  h1, h2, h3 {
+  h1, h2, h3, h4, p {
     text-align: center;
   }
 
-  /* REMOVE HARD MARGINS */
+  /* REMOVE ALL LEFT PUSH */
   * {
     margin-left: 0 !important;
+  }
+
+  /* SOCIAL ICONS CENTER */
+  .social-links {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin: 15px 0;
+  }
+
+  /* EDUCATION TIMELINE FIX */
+  .edu-timeline {
+    padding-left: 40px;
+  }
+
+  .edu-marker {
+    left: -30px;
+    width: 40px;
+    height: 40px;
+    font-size: 12px;
   }
 
 }
