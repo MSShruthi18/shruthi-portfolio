@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
   
   
-  const roles = ["Problem Solver", "Frontend Developer","M S Shruthi"];
+  const roles = ["Problem Solver", "Software Developer","M S Shruthi"];
   const textEl = document.querySelector(".typed-text");
   let i = 0;
 
