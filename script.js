@@ -32,6 +32,53 @@ document.addEventListener("DOMContentLoaded", () => {
     setInterval(changeText, 2500); // Change every 2.5 sec
   });
 
+// OPEN WHATSAPP POPUP
+function openPopup() {
+  document.getElementById("popup").style.display = "flex";
+}
+
+// CLOSE POPUP
+function closePopup() {
+  document.getElementById("popup").style.display = "none";
+}
+
+// GO TO WHATSAPP AFTER NAME
+function goWhatsApp() {
+  const name = document.getElementById("name").value;
+
+  if (name.trim() === "") {
+    alert("Please enter your name");
+    return;
+  }
+
+  window.open(`https://wa.me/917676841307?text=Hi I'm ${name}`, "_blank");
+  closePopup();
+}
+
+
+// LINKEDIN POPUP
+function openLinkedInPopup() {
+  document.getElementById("linkedinPopup").style.display = "flex";
+}
+
+function closeLinkedInPopup() {
+  document.getElementById("linkedinPopup").style.display = "none";
+}
+
+function goLinkedIn() {
+  const name = document.getElementById("linkedinName").value;
+
+  if (name.trim() === "") {
+    alert("Please enter your name");
+    return;
+  }
+
+  window.open("https://www.linkedin.com/in/msshruthi18/", "_blank");
+  closeLinkedInPopup();
+}
+
+
+
 function openPopup() {
   document.getElementById("popup").style.display = "flex";
   document.getElementById("name").value = "";
