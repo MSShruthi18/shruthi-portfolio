@@ -746,12 +746,37 @@ body.dark {
 }
 
  
+.profile-img-wrapper {
+  display: inline-block;
+  padding: 6px;
+  border-radius: 50%;
+  position: relative;
+}
 
-  .profile-img {
-    width: 180px;
-    height: 180px;
-  }
+.profile-img-wrapper::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: linear-gradient(120deg, #4f46e5, #06b6d4, #22c55e);
+  filter: blur(10px);
+  opacity: 0.6;
+  animation: glowPulse 3s ease-in-out infinite;
+}
 
+.profile-img {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  object-fit: cover;
+  position: relative;
+  z-index: 1;
+}
+
+@keyframes glowPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
   /* SOCIAL */
   .social-links {
     margin-left: 0 !important;
@@ -768,11 +793,36 @@ body.dark {
     width: 100%;
     height: auto;
   }
+.certificates-container {
+  overflow: hidden;
+  width: 100%;
+ 
+  padding: 20px 0;
 
-  /* CERTIFICATE */
-  .certificate-card {
-    flex: 0 0 80%;
+}
+
+.auto-scroll {
+  display: flex;
+  gap: 20px;
+  width: max-content;
+  animation: scrollLoop 25s linear infinite;
+}
+
+/* FIX CARD SIZE */
+.certificate-card {
+  min-width: 260px;
+  flex-shrink: 0;
+}
+
+/* 🔥 KEY FIX */
+@keyframes scrollLoop {
+  0% {
+    transform: translateX(0);
   }
+  100% {
+    transform: translateX(-50%);
+  }
+}
 
   /* ACHIEVEMENTS (DON’T BREAK YOUR STYLE) */
   #row1ach, #row2ach, #row3ach {
