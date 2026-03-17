@@ -699,6 +699,72 @@ body.dark {
   font-size: 22px;
   cursor: pointer;
 }
+/* SECTION */
+.activities-section {
+  padding: 40px 20px;
+  display: flex;
+  width:100%;
+  justify-content: center;
+}
+
+/* CARD */
+.activities-card {
+  position: relative;
+  width: 100%;
+  max-width: 350px;
+  border-radius: 15px;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+/* IMAGE */
+.activities-img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  display: block;
+  transition: 0.4s;
+}
+
+/* OVERLAY */
+.activities-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  color: white;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  opacity: 0;
+  transition: 0.4s;
+}
+
+/* TEXT */
+.activities-overlay h3 {
+  margin-bottom: 10px;
+}
+
+/* BUTTON */
+.activities-btn {
+  background: #4f46e5;
+  padding: 10px 15px;
+  border-radius: 8px;
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+}
+
+/* HOVER EFFECT */
+.activities-card:hover .activities-img {
+  transform: scale(1.1);
+}
+
+.activities-card:hover .activities-overlay {
+  opacity: 1;
+}
 @media (max-width: 500px) {
   .hero {
     text-align: left;
@@ -736,7 +802,10 @@ body.dark {
     text-align: center;
     padding: 15px 0;
   }
-
+  .activities-overlay {
+    opacity: 1;
+    background: rgba(0,0,0,0.6);
+  }
   /* 👇 SHOW ONLY WHEN CLICKED */
   .nav-links.active {
     display: flex;
@@ -765,8 +834,8 @@ body.dark {
 }
 
 .profile-img {
-  width: 200px;
-  height: 200px;
+  width: 250px;
+  height: 250px;
   border-radius: 50%;
   object-fit: cover;
   position: relative;
