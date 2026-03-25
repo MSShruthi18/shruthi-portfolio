@@ -3,349 +3,987 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Shruthi | Portfolio</title>
-  <link rel="stylesheet" href="style.css" />
-  <script src="script.js" defer></script>
-  
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <title>M S Shruthi | Portfolio</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
-  
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --bg: #0a0a0f;
+      --bg2: #111118;
+      --card: #16161f;
+      --card2: #1d1d28;
+      --accent: #7c6aff;
+      --accent2: #ff6ab0;
+      --accent3: #6affda;
+      --text: #f0eeff;
+      --muted: #8888aa;
+      --border: rgba(124,106,255,0.18);
+      --glow: rgba(124,106,255,0.25);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ─── NOISE OVERLAY ─── */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none; z-index: 0; opacity: 0.4;
+    }
+
+    /* ─── SCROLLBAR ─── */
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 2px; }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1rem 2rem;
+      background: rgba(10,10,15,0.85);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      transition: all 0.3s;
+    }
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      color: var(--accent);
+      font-style: italic;
+      letter-spacing: 0.03em;
+    }
+    .nav-links {
+      display: flex; gap: 2rem; list-style: none; align-items: center;
+    }
+    .nav-links a {
+      color: var(--muted); text-decoration: none;
+      font-size: 0.85rem; font-weight: 500; letter-spacing: 0.08em;
+      text-transform: uppercase; transition: color 0.3s;
+      position: relative;
+    }
+    .nav-links a::after {
+      content: ''; position: absolute; bottom: -4px; left: 0;
+      width: 0; height: 1px; background: var(--accent);
+      transition: width 0.3s;
+    }
+    .nav-links a:hover { color: var(--accent); }
+    .nav-links a:hover::after { width: 100%; }
+    .hamburger {
+      display: none; cursor: pointer;
+      font-size: 1.5rem; color: var(--text);
+      background: none; border: none;
+    }
+    @media(max-width:768px) {
+      .hamburger { display: block; }
+      .nav-links {
+        display: none; flex-direction: column;
+        position: absolute; top: 100%; left: 0; right: 0;
+        background: rgba(10,10,15,0.97); padding: 1.5rem 2rem;
+        gap: 1.2rem; border-bottom: 1px solid var(--border);
+      }
+      .nav-links.open { display: flex; }
+    }
+
+    /* ─── SECTIONS ─── */
+    section { position: relative; z-index: 1; }
+    .section-wrap {
+      max-width: 1100px; margin: 0 auto;
+      padding: 5rem 2rem;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 5vw, 3rem);
+      margin-bottom: 3rem;
+      position: relative; display: inline-block;
+    }
+    .section-title::after {
+      content: ''; position: absolute;
+      bottom: -8px; left: 0;
+      width: 60%; height: 3px;
+      background: linear-gradient(90deg, var(--accent), transparent);
+      border-radius: 2px;
+    }
+
+    /* ─── HERO ─── */
+    .hero {
+      min-height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      flex-direction: column; text-align: center;
+      padding: 6rem 2rem 4rem;
+      position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; top: -40%; left: -20%;
+      width: 80vw; height: 80vw; max-width: 700px; max-height: 700px;
+      background: radial-gradient(ellipse, rgba(124,106,255,0.12) 0%, transparent 70%);
+      animation: pulse 6s ease-in-out infinite;
+    }
+    .hero::after {
+      content: '';
+      position: absolute; bottom: -20%; right: -10%;
+      width: 60vw; height: 60vw; max-width: 500px; max-height: 500px;
+      background: radial-gradient(ellipse, rgba(255,106,176,0.09) 0%, transparent 70%);
+      animation: pulse 8s ease-in-out infinite reverse;
+    }
+    @keyframes pulse {
+      0%,100% { transform: scale(1); opacity: 0.8; }
+      50% { transform: scale(1.1); opacity: 1; }
+    }
+    .profile-ring {
+      position: relative; width: 360px; height: 360px;
+      margin: 0 auto 2rem;
+    }
+    .profile-ring::before {
+      content: ''; position: absolute; inset: -4px;
+      border-radius: 50%;
+      background: conic-gradient(var(--accent), var(--accent2), var(--accent3), var(--accent));
+      animation: spin 4s linear infinite;
+    }
+    .profile-ring::after {
+      content: ''; position: absolute; inset: -8px;
+      border-radius: 50%;
+      background: conic-gradient(transparent 60%, rgba(124,106,255,0.3));
+      animation: spin 4s linear infinite reverse;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .profile-img {
+      position: relative; z-index: 1;
+      width: 352px; height: 352px;
+      border-radius: 50%; object-fit: cover;
+      border: 4px solid var(--bg);
+      display: block; margin: 4px auto 0;
+    }
+    .hero-welcome {
+      font-size: 0.8rem; letter-spacing: 0.3em; text-transform: uppercase;
+      color: var(--accent); font-family: 'Space Mono', monospace;
+      margin-bottom: 1rem;
+      animation: fadeUp 0.8s ease both;
+    }
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.5rem, 7vw, 5rem);
+      line-height: 1.1; font-weight: 700;
+      animation: fadeUp 0.9s ease 0.1s both;
+      margin-bottom: 0.5rem;
+    }
+    .hero h1 span {
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-sub {
+      font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+      color: var(--muted); max-width: 520px;
+      animation: fadeUp 1s ease 0.2s both;
+      margin-bottom: 2rem;
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .hero-socials {
+      display: flex; gap: 1rem; justify-content: center;
+      animation: fadeUp 1s ease 0.35s both;
+      margin-bottom: 2rem;
+    }
+    .hero-socials a {
+      width: 44px; height: 44px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      background: var(--card); border: 1px solid var(--border);
+      color: var(--muted); font-size: 1.1rem; text-decoration: none;
+      transition: all 0.3s;
+    }
+    .hero-socials a:hover {
+      color: var(--accent); border-color: var(--accent);
+      box-shadow: 0 0 20px var(--glow); transform: translateY(-3px);
+    }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.8rem 2rem; border-radius: 50px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      color: #fff; text-decoration: none;
+      font-weight: 600; font-size: 0.9rem; letter-spacing: 0.05em;
+      transition: all 0.3s; box-shadow: 0 4px 24px rgba(124,106,255,0.35);
+      animation: fadeUp 1s ease 0.45s both;
+    }
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 32px rgba(124,106,255,0.5);
+    }
+
+    /* ─── ABOUT ─── */
+    .about-box {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 20px; padding: 2.5rem;
+      max-width: 780px;
+      backdrop-filter: blur(10px);
+      position: relative; overflow: hidden;
+    }
+    .about-box::before {
+      content: '"'; position: absolute; top: -20px; left: 20px;
+      font-family: 'Playfair Display', serif;
+      font-size: 10rem; color: var(--accent); opacity: 0.07;
+      line-height: 1; pointer-events: none;
+    }
+    .about-box p {
+      color: var(--muted); font-size: 1.05rem; line-height: 1.9;
+      position: relative; z-index: 1;
+    }
+
+    /* ─── EDUCATION ─── */
+    .edu-grid { display: flex; flex-direction: column; gap: 1.5rem; }
+    .edu-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px; padding: 1.8rem 2rem;
+      display: grid; grid-template-columns: 80px 1fr;
+      gap: 1.5rem; align-items: center;
+      transition: all 0.3s; cursor: default;
+    }
+    .edu-card:hover {
+      border-color: var(--accent);
+      transform: translateX(8px);
+      box-shadow: 0 4px 30px var(--glow);
+    }
+    .edu-year {
+      font-family: 'Space Mono', monospace;
+      font-size: 1.2rem; font-weight: 700;
+      color: var(--accent); text-align: center;
+      background: rgba(124,106,255,0.1);
+      border-radius: 12px; padding: 0.5rem;
+      line-height: 1.2;
+    }
+    .edu-info h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem; margin-bottom: 0.3rem;
+    }
+    .edu-info p { color: var(--muted); font-size: 0.9rem; }
+    .edu-info .grade {
+      display: inline-block; margin-top: 0.5rem;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-weight: 700; font-size: 0.95rem;
+    }
+
+    /* ─── CERTIFICATES ─── */
+    .certs-scroll {
+      display: flex; gap: 1.5rem; overflow-x: auto;
+      padding-bottom: 1rem; scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+    }
+    .certs-scroll::-webkit-scrollbar { height: 4px; }
+    .cert-card {
+      flex: 0 0 260px; scroll-snap-align: start;
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 16px; padding: 1.8rem;
+      transition: all 0.3s; position: relative; overflow: hidden;
+    }
+    .cert-card::before {
+      content: '';position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      transform: scaleX(0); transform-origin: left;
+      transition: transform 0.4s;
+    }
+    .cert-card:hover { border-color: var(--accent); transform: translateY(-6px); box-shadow: 0 12px 40px var(--glow); }
+    .cert-card:hover::before { transform: scaleX(1); }
+    .cert-icon { font-size: 2rem; margin-bottom: 1rem; }
+    .cert-card h3 { font-size: 1rem; margin-bottom: 0.4rem; }
+    .cert-card p { color: var(--muted); font-size: 0.85rem; margin-bottom: 1rem; }
+    .cert-link {
+      font-size: 0.8rem; font-weight: 600; letter-spacing: 0.06em;
+      color: var(--accent); text-decoration: none; text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .cert-link:hover { color: var(--accent2); }
+
+    /* ─── SKILLS ─── */
+    .skills-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+    .skill-item { }
+    .skill-label {
+      display: flex; justify-content: space-between;
+      font-size: 0.9rem; font-weight: 600; margin-bottom: 0.5rem;
+    }
+    .skill-pct { color: var(--accent); font-family: 'Space Mono', monospace; }
+    .skill-bar {
+      height: 6px; background: var(--card2);
+      border-radius: 3px; overflow: hidden;
+    }
+    .skill-fill {
+      height: 100%; border-radius: 3px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      width: 0; transition: width 1.4s cubic-bezier(0.4,0,0.2,1);
+    }
+
+    /* ─── ACHIEVEMENTS ─── */
+    .ach-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+    .ach-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 16px; padding: 1.8rem;
+      transition: all 0.3s; display: flex; flex-direction: column; gap: 0.8rem;
+    }
+    .ach-card:hover {
+      border-color: var(--accent2); transform: translateY(-5px);
+      box-shadow: 0 10px 40px rgba(255,106,176,0.15);
+    }
+    .ach-tag {
+      font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--accent2); font-weight: 700;
+      font-family: 'Space Mono', monospace;
+    }
+    .ach-card h3 { font-family: 'Playfair Display', serif; font-size: 1rem; }
+    .ach-card p { color: var(--muted); font-size: 0.87rem; line-height: 1.7; }
+
+    /* ─── PROJECTS ─── */
+    .projects-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+    .project-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 20px; overflow: hidden; transition: all 0.4s;
+    }
+    .project-card:hover {
+      border-color: var(--accent); transform: translateY(-8px);
+      box-shadow: 0 20px 60px var(--glow);
+    }
+    .project-img-wrap {
+      width: 100%; height: 180px; overflow: hidden; position: relative;
+    }
+    .project-img-wrap img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+    .project-card:hover .project-img-wrap img { transform: scale(1.08); }
+    .project-img-wrap::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(to bottom, transparent 40%, rgba(10,10,15,0.8));
+    }
+    .project-body { padding: 1.5rem; }
+    .project-body h3 {
+      font-family: 'Playfair Display', serif; font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+    }
+    .project-body p { color: var(--muted); font-size: 0.87rem; line-height: 1.7; margin-bottom: 1rem; }
+    .project-links { display: flex; gap: 0.8rem; flex-wrap: wrap; }
+    .project-links a {
+      font-size: 0.78rem; font-weight: 600; letter-spacing: 0.08em;
+      text-transform: uppercase; text-decoration: none;
+      padding: 0.4rem 1rem; border-radius: 50px;
+      border: 1px solid var(--border); color: var(--muted);
+      transition: all 0.3s;
+    }
+    .project-links a:hover {
+      background: var(--accent); color: #fff; border-color: var(--accent);
+    }
+    .project-links a.demo {
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      color: #fff; border: none;
+    }
+    .project-links a.demo:hover { transform: scale(1.05); }
+
+    /* ─── CODING ─── */
+    .coding-box {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 20px; padding: 3rem 2.5rem; text-align: center;
+      position: relative; overflow: hidden;
+    }
+    .coding-box::before {
+      content: '</>'; position: absolute;
+      font-family: 'Space Mono', monospace;
+      font-size: 8rem; color: var(--accent); opacity: 0.04;
+      top: 50%; left: 50%; transform: translate(-50%, -50%);
+    }
+    .coding-box p { color: var(--muted); margin-bottom: 1.5rem; max-width: 500px; margin-left: auto; margin-right: auto; }
+
+    /* ─── ACTIVITIES ─── */
+      .activities-intro { color: var(--muted); margin-bottom: 2rem; max-width: 600px; }
+  .activities-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+  }
+  .activity-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    transition: all 0.3s;
+    display: flex;
+    flex-direction: column;
+  }
+  .activity-card:hover {
+    border-color: var(--accent3);
+    transform: translateY(-6px);
+    box-shadow: 0 12px 40px rgba(106,255,218,0.12);
+  }
+  .activity-photo-wrap {
+    width: 100%;
+    height: 300px;
+    overflow: hidden;
+    position: relative;
+    background: var(--card2);
+  }
+  .activity-photo-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+    display: block;
+  }
+  .activity-card:hover .activity-photo-wrap img { transform: scale(1.06); }
+  .activity-photo-wrap::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, transparent 50%, rgba(10,10,15,0.6));
+  }
+  .activity-body { padding: 1.4rem; flex: 1; }
+  .activity-tag {
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent3);
+    font-weight: 700;
+    font-family: 'Space Mono', monospace;
+    margin-bottom: 0.6rem;
+    display: block;
+  }
+  .activity-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+  }
+  .activity-card p {
+    color: var(--muted);
+    font-size: 0.87rem;
+    line-height: 1.7;
+  }
+    /* ─── FOOTER ─── */
+    footer {
+      background: var(--bg2); border-top: 1px solid var(--border);
+      padding: 4rem 2rem; text-align: center; position: relative; z-index: 1;
+    }
+    footer h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem; margin-bottom: 1.5rem;
+    }
+    .footer-contact { color: var(--muted); margin-bottom: 0.5rem; }
+    .footer-contact a { color: var(--accent); text-decoration: none; }
+    .footer-socials { display: flex; gap: 1rem; justify-content: center; margin: 2rem 0 1rem; }
+    .footer-socials a {
+      width: 44px; height: 44px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      background: var(--card); border: 1px solid var(--border);
+      color: var(--muted); text-decoration: none; font-size: 1.1rem;
+      transition: all 0.3s;
+    }
+    .footer-socials a:hover {
+      color: var(--accent); border-color: var(--accent);
+      box-shadow: 0 0 20px var(--glow);
+    }
+    .footer-thanks { color: var(--muted); font-size: 0.9rem; margin-bottom: 0.5rem; }
+    .footer-copy { color: rgba(136,136,170,0.5); font-size: 0.8rem; }
+
+    /* ─── SCROLL REVEAL ─── */
+    .reveal {
+      opacity: 0; transform: translateY(40px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ─── FLOATING DECORATORS ─── */
+    .dot {
+      position: fixed; border-radius: 50%; pointer-events: none;
+      z-index: 0;
+    }
+    .dot1 {
+      width: 300px; height: 300px;
+      background: radial-gradient(circle, rgba(124,106,255,0.08), transparent 70%);
+      top: 20%; right: -100px;
+    }
+    .dot2 {
+      width: 200px; height: 200px;
+      background: radial-gradient(circle, rgba(255,106,176,0.07), transparent 70%);
+      bottom: 30%; left: -60px;
+    }
+
+    /* Mobile responsive tweaks */
+    @media(max-width:600px) {
+      .section-wrap { padding: 4rem 1.2rem; }
+      .edu-card { grid-template-columns: 1fr; text-align: center; }
+      .edu-year { width: 80px; margin: 0 auto; }
+    }
+  </style>
 </head>
 <body>
-  <header>
-  <nav class="navbar">
-<div class="hamburger" id="hamburger">
-  ☰
-</div>
+
+  <div class="dot dot1"></div>
+  <div class="dot dot2"></div>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-logo">Shruthi</div>
+    <button class="hamburger" id="hamburger" aria-label="Menu">☰</button>
     <ul class="nav-links" id="navLinks">
       <li><a href="#about">About</a></li>
       <li><a href="#education">Education</a></li>
       <li><a href="#certificates">Certificates</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#achievements">Achievements</a></li>
       <li><a href="#projects">Projects</a></li>
-      <li><a href="#achivements">Achievements</a></li>
-      <li><a href="#coding-portfolio">Coding</a></li>
-      <li><button id="themeToggle">🌙</button></li>
-
+      <li><a href="#activities">Activities</a></li>
+      <li><a href="#coding">Coding</a></li>
     </ul>
-
   </nav>
-</header>
-    <section class="hero">
-        <div class="hero-content">
-          <div class="profile-img-wrapper">
-  <img src="assets/myimage.jpg" class="profile-img">
-</div>
-           
-            
-        </div>
-        <h4 style="color:blue;align-content: left;">Welcome to my portfolio website..!</h3>
- <h1>Hi, I'm <span class="typed-text">M S Shruthi</span></h1>
-<h3>Aspiring Software Developer | MCA | Problem Solver</h3>
 
-</section>
-
-    
-      
-      
-  
-  <div class="social-links">
-    <a href="https://github.com/MSShruthi18" target="_blank">
-      <i class="fab fa-github"></i> 
+  <!-- HERO -->
+  <section class="hero">
+    <div class="profile-ring">
+      <img src="assets/myimage.jpg" alt="M S Shruthi" class="profile-img"
+           onerror="this.src='https://ui-avatars.com/api/?name=MS+Shruthi&background=7c6aff&color=fff&size=200'">
+    </div>
+    <div class="hero-welcome">✦ Welcome to my portfolio ✦</div>
+    <h1>Hi, I'm <span>M S Shruthi</span></h1>
+    <p class="hero-sub">Aspiring Software Developer &nbsp;·&nbsp; MCA Student &nbsp;·&nbsp; Problem Solver</p>
+    <div class="hero-socials">
+      <a href="https://github.com/MSShruthi18" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+      <a href="https://www.linkedin.com/in/msshruthi18/" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+      <a href="mailto:msshruthi432@gmail.com" aria-label="Email"><i class="fa-solid fa-envelope"></i></a>
+    </div>
+    <a href="assets/updatedresume.pdf" download class="btn-primary">
+      <i class="fa-solid fa-file-arrow-down"></i> Download Resume
     </a>
-    |
-    <a href="https://www.linkedin.com/in/msshruthi18/" target="_blank">
-      <i class="fab fa-linkedin"></i> 
-    </a> |
- <a href="mailto:msshruthi432@gmail.com" target="_blank"><i class="fa-solid fa-envelope"></i></a>     
-
-  </div>
-  
-  
- 
-  
-  <section id="about">
-    <p style="font-weight: bold;">Tech enthusiast with a passion for learning, eager to contribute coding skills to innovative projects ,to expand knowledge ,enhance my skill set and I am open to guidance and training to achieve this.I believe that continuous learning is essential for my professional growth and I am committed to it.</p>
-    <a href="assets/updatedresume.pdf" download class="btn">📄 View Resume</a>
   </section>
 
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="section-wrap">
+      <h2 class="section-title reveal">About Me</h2>
+      <div class="about-box reveal">
+        <p>Tech enthusiast with a passion for learning, eager to contribute coding skills to innovative projects, expand knowledge, and enhance my skill set. I am open to guidance and training to achieve this. I believe that continuous learning is essential for professional growth and I am committed to it.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- EDUCATION -->
   <section id="education">
-<h2>Education </h2>
-    <div class="edu-timeline">
-        <div class="edu-item">
-            <div class="edu-marker">2026</div>
-            <div class="edu-content">
-              <h3>MCA  ( Master of Computer Application )</h3>
-              <p>NMAM Instistution of Technology,Nitte.</p>
-              <p>CGPA: <span class="highlight">9.50 [Pursing]</span></p>
-            </div>
+    <div class="section-wrap">
+      <h2 class="section-title reveal">Education</h2>
+      <div class="edu-grid">
+        <div class="edu-card reveal">
+          <div class="edu-year">2025-27</div>
+          <div class="edu-info">
+            <h3>MCA — Master of Computer Application</h3>
+            <p>NMAM Institution of Technology, Nitte</p>
+            <span class="grade">CGPA: 9.50 (Pursuing)</span>
           </div>
+        </div>
+        <div class="edu-card reveal">
+          <div class="edu-year">2022-25</div>
+          <div class="edu-info">
+            <h3>BCA — Bachelor of Computer Application</h3>
+            <p>SDM Autonomous College, Ujire</p>
+            <span class="grade">CGPA: 9.34</span>
           </div>
-    <div class="edu-timeline">
-<div class="edu-item">
-            <div class="edu-marker">2025</div>
-            <div class="edu-content">
-              <h3>BCA  ( Bachelor of Computer Application )</h3>
-              <p>SDM Autonomous College, Ujire.</p>
-              <p>CGPA: <span class="highlight">9.34</span></p>
-            </div>
+        </div>
+        <div class="edu-card reveal">
+          <div class="edu-year">2020-22</div>
+          <div class="edu-info">
+            <h3>PUC — Commerce with Statistics &amp; CS</h3>
+            <p>St. Sebastian Pre-University College, Mangalore</p>
+            <span class="grade">96%</span>
           </div>
-          <div class="edu-item">
-        <div class="edu-marker">2022</div>
-        <div class="edu-content">
-          <h3>PUC ( Commerce with Statistics & CS )</h3>
-          <p>St. Sebastian Pre-University College,Mangalore.</p>
-          <p>Percentage: <span class="highlight">96%</span></p>
         </div>
       </div>
+    </div>
   </section>
- 
 
-
-
-
-
-
-<section id="certificates">
-  <h2>Certificates</h2>
-
-<div  class="cert-wrapper">
-
-  <!-- LEFT BUTTON -->
-
-
-  <!-- SCROLL CONTAINER -->
-  <div  class="certificates-container"  id="certContainer">
-    <div class="certificate-card">
-      <div class="auto-scroll"></div>
-      <h3>Data Structure and Algorithms</h3>
-      <p>DSA concepts and problem-solving.</p>
-      <a href="ds.jpg" target="_blank" class="view-cert">View Certificate</a>
-    
-    </div>
-
-    <div class="certificate-card">
-      <h3>Mastering Generative AI</h3>
-      <p>Advanced AI and ML Concepts</p>
-      <a href="ai.pdf" target="_blank" class="view-cert">View Certificate</a>
-    </div>
-<div class="certificate-card">
-      <h3>Diploma in Office Automation</h3>
-      <p>Office Tools & Productivity</p>
-      <a href="assets/diplomo.jpg" target="_blank" class="view-cert">View Certificate</a>
-    </div>
-    <div class="certificate-card">
-      <h3>PowerBI Workshop</h3>
-      <p>Data Visualization & Dashboard Design</p>
-      <a href="assets/Certificate (1).pdf" target="_blank" class="view-cert">View Certificate</a>
-    </div>
-<div class="certificate-card">
-      <h3>Python Full Course</h3>
-      <p>Complete Beginner to Advanced</p>
-      <a href="python.pdf" target="_blank" class="view-cert">View Certificate</a>
-    </div>
- </div>
-  </div>
-
-</section>
-
-
-
-<section id="skills">
-  <h2>Skills</h2>
-
-  <div class="skill-bar">
-    <span class="skill-title">SQL</span>
-    <div class="bar">
-      <div class="progress" style="width: 90%;">
-        <span class="percent-text"></span>
+  <!-- CERTIFICATES -->
+  <section id="certificates">
+    <div class="section-wrap">
+      <h2 class="section-title reveal">Certificates</h2>
+      <div class="certs-scroll reveal">
+        <div class="cert-card">
+          <div class="cert-icon">🧠</div>
+          <h3>Data Structures &amp; Algorithms</h3>
+          <p>DSA concepts and problem-solving techniques</p>
+          <a href="ds.jpg" target="_blank" class="cert-link">View Certificate →</a>
+        </div>
+        <div class="cert-card">
+          <div class="cert-icon">🤖</div>
+          <h3>Mastering Generative AI</h3>
+          <p>Advanced AI and ML concepts</p>
+          <a href="ai.pdf" target="_blank" class="cert-link">View Certificate →</a>
+        </div>
+        <div class="cert-card">
+          <div class="cert-icon">💼</div>
+          <h3>Diploma in Office Automation</h3>
+          <p>Office tools &amp; productivity</p>
+          <a href="assets/diplomo.jpg" target="_blank" class="cert-link">View Certificate →</a>
+        </div>
+        <div class="cert-card">
+          <div class="cert-icon">📊</div>
+          <h3>PowerBI Workshop</h3>
+          <p>Data visualization &amp; dashboard design</p>
+          <a href="assets/Certificate (1).pdf" target="_blank" class="cert-link">View Certificate →</a>
+        </div>
+        <div class="cert-card">
+          <div class="cert-icon">🐍</div>
+          <h3>Python Full Course</h3>
+          <p>Complete beginner to advanced Python</p>
+          <a href="python.pdf" target="_blank" class="cert-link">View Certificate →</a>
+        </div>
       </div>
     </div>
-  </div>
+  </section>
 
-  <div class="skill-bar">
-    <span class="skill-title">JAVA </span>
-    <div class="bar">
-      <div class="progress" style="width: 85%;">
-        <span class="percent-text"></span>
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="section-wrap">
+      <h2 class="section-title reveal">Skills</h2>
+      <div class="skills-grid reveal" id="skillsGrid">
+        <div class="skill-item">
+          <div class="skill-label"><span>SQL</span><span class="skill-pct">90%</span></div>
+          <div class="skill-bar"><div class="skill-fill" data-w="90"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-label"><span>Java</span><span class="skill-pct">85%</span></div>
+          <div class="skill-bar"><div class="skill-fill" data-w="85"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-label"><span>HTML / CSS</span><span class="skill-pct">85%</span></div>
+          <div class="skill-bar"><div class="skill-fill" data-w="85"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-label"><span>C Programming</span><span class="skill-pct">70%</span></div>
+          <div class="skill-bar"><div class="skill-fill" data-w="70"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-label"><span>JavaScript</span><span class="skill-pct">70%</span></div>
+          <div class="skill-bar"><div class="skill-fill" data-w="70"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-label"><span>Python</span><span class="skill-pct">75%</span></div>
+          <div class="skill-bar"><div class="skill-fill" data-w="75"></div></div>
+        </div>
       </div>
     </div>
-  </div>
+  </section>
 
-
-  </div>
-  <div class="skill-bar">
-    <span class="skill-title">HTML/CSS</span>
-    <div class="bar">
-      <div class="progress" style="width: 85%;">
-        <span class="percent-text"><span>
-      </div>
-    </div>
-      <div class="skill-bar">
-    <span class="skill-title">C programming</span>
-    <div class="bar">
-      <div class="progress" style="width: 70%;">
-        <span class="percent-text"></span>
-      </div>
-    </div>
-  </div>
-    </div>
-    
-    
-  </div>
-    <div class="skill-bar">
-    <span class="skill-title">Javascript</span>
-    <div class="bar">
-      <div class="progress" style="width: 70%;">
-        <span class="percent-text"></span>
-      </div>
-    </div>
-    
-  </div>
-  
-</section>
-<div class="ach-root">
-  <div class="ach-header">
-    
-    <h2>Achievements</h2>
-  </div>
-
-  <div class="ach-stack" id="stack">
-  </div>
-
-  <div class="ach-controls">
-    <button class="ach-btn" id="prevBtn" title="Previous">&#8592;</button>
-    <div class="ach-dots" id="dots"></div>
-    <button class="ach-btn" id="nextBtn" title="Next">&#8594;</button>
-  </div>
+  <!-- ACHIEVEMENTS -->
+  <section id="achievements">
+    <div class="section-wrap">
+      <h2 class="section-title reveal">Achievements</h2>
+      <div class="ach-grid">
+               <div class="ach-card reveal">
+  <div class="ach-tag">🏅 Award</div>
+  <h3>Gold Medal in BCA</h3>
+  <p>Awarded Gold Medal for outstanding academic performance in Bachelor of Computer Applications (BCA), securing top rank in the program.</p>
+</div>
+        <div class="ach-card reveal">
+          <div class="ach-tag">🏆 Award</div>
+          <h3>Best Library User — College Level</h3>
+          <p>Recognized as Best Library User in the entire college for 2024–25, awarded a cash prize and certificate. Also recognized as Best Student Faculty and Second Topper in General Proficiency (Achiever's Day).</p>
+        </div>
+        <div class="ach-card reveal">
+  <div class="ach-tag">💻 Hackathon</div>
+  <h3>National Level Hydra Hackathon</h3>
+  <p>Participated in the National Level Hydra Hackathon held at Nitte NMAMIT, Bengaluru, collaborating on innovative solutions and gaining hands-on experience in competitive problem-solving.</p>
 </div>
 
-
-
-  
-
-
-
-     
-
-
-
-
-
-
-
-<section id="coding-portfolio"> 
-  <h2>Coding Portfolio</h2> 
-  <p>Explore my coding projects and contributions , showcasing my skills and passion for software development.</p>                                  
-<a href="https://codolio.com/profile/Shruthi18" target="_blank">View My Coding Profile</a>
+        <div class="ach-card reveal">
+          <div class="ach-tag">🏅 Department</div>
+          <h3>Best Library User &amp; Class Topper</h3>
+          <p>Honoured with Best Library User Award in the Department of Computer Science and recognized as second class topper by the department.</p>
+        </div>
+        <div class="ach-card reveal">
+          <div class="ach-tag">🎭 Cultural</div>
+          <h3>SDM KalaVaibhava — 8 Shows</h3>
+          <p>Actively participated in SDM Cultural Center, performing 8 shows in 1st year BCA — 5 at Dharwad, 1 at Dharmasthala, 1 at Aladangady, 1 at Surya Temple.</p>
+        </div>
+        <div class="ach-card reveal">
+          <div class="ach-tag">👩‍🏫 Mentorship</div>
+          <h3>Junior Faculty at SDM College</h3>
+          <p>Selected to teach and mentor juniors, conducting regular classes as a faculty member at SDM College, Ujire.</p>
+        </div>
+      </div>
+    </div>
   </section>
+
+  <!-- PROJECTS -->
   <section id="projects">
-  <h2>Projects</h2>
-  <div class="projects-grid">
-
-    <div class="project-card">
-      <img src="assets/financial.png" alt="Financial Expense Tracker" class="project-img">
-      <h3>Financial Expense Tracker</h3>
-      <p>A web app to track and manage personal finances efficiently.It provide easy-to-use tool for users to manage their finaces by tracking income and expenses.</p>
-      <div class="project-links">
-        <a href="https://github.com/MSShruthi18/financial-expense-tracker" target="_blank">GitHub</a> <br>
-         <a href="https://financial-expense-tracker.vercel.app/" target="_blank">LIVE DEMO</a> 
-
+    <div class="section-wrap">
+      <h2 class="section-title reveal">Projects</h2>
+      <div class="projects-grid">
+        <div class="project-card reveal">
+          <div class="project-img-wrap">
+            <img src="assets/financial.png" alt="Financial Expense Tracker"
+                 onerror="this.parentElement.style.background='#1d1d28';this.style.display='none'">
+          </div>
+          <div class="project-body">
+            <h3>Financial Expense Tracker</h3>
+            <p>A web app to track and manage personal finances efficiently — easy-to-use tool for managing income and expenses.</p>
+            <div class="project-links">
+              <a href="https://github.com/MSShruthi18/financial-expense-tracker" target="_blank">
+                <i class="fab fa-github"></i> GitHub
+              </a>
+              <a href="https://financial-expense-tracker.vercel.app/" target="_blank" class="demo">
+                🚀 Live Demo
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="project-card reveal">
+          <div class="project-img-wrap">
+            <img src="assets/recipe.png" alt="Recipe Website"
+                 onerror="this.parentElement.style.background='#1d1d28';this.style.display='none'">
+          </div>
+          <div class="project-body">
+            <h3>Recipe Website</h3>
+            <p>A focused recipe platform describing how to prepare dishes with clear, step-by-step instructions for food enthusiasts.</p>
+            <div class="project-links">
+              <a href="https://github.com/MSShruthi18/recipe" target="_blank">
+                <i class="fab fa-github"></i> GitHub
+              </a>
+              <a href="https://recipe-seven-eosin.vercel.app/" target="_blank" class="demo">
+                🚀 Live Demo
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="project-card reveal">
+          <div class="project-img-wrap">
+            <img src="assets/piano.png" alt="Piano Game"
+                 onerror="this.parentElement.style.background='#1d1d28';this.style.display='none'">
+          </div>
+          <div class="project-body">
+            <h3>Piano Game</h3>
+            <p>An interactive piano game where users learn to play by hitting correct notes on a visual keyboard representation.</p>
+            <div class="project-links">
+              <a href="https://github.com/MSShruthi18/piano-game" target="_blank">
+                <i class="fab fa-github"></i> GitHub
+              </a>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-     <div class="project-card">
-      <img src="assets/recipe.png" alt="Portfolio Website" class="project-img">
-      <h3>Recipe website</h3>
-      <p>This project focuses on set of instructions that describes how to prepare or make something, especially a dish of prepared food.</p>
-      <div class="project-links">
-        <a href="https://github.com/MSShruthi18/recipe" target="_blank">GitHub</a> <br>
-         <a href="https://recipe-seven-eosin.vercel.app/" target="_blank">LIVE DEMO</a> 
-   </div>
-      </div>
+  </section>
 
-    <div class="project-card">
-      <img src="assets/piano.png" alt="Student Management System" class="project-img">
-      <h3>Piano Game</h3>
-      <p>This project is about creating a piano game where users can learn to play by hitting correct notes as they appear on a visual representation of a piano keyboard.</p>
-      <div class="project-links">
-        <a href="https://github.com/MSShruthi18/piano-game" target="_blank">GitHub</a> <br>
-        
+  <!-- ACTIVITIES -->
+<section id="activities">
+  <div class="section-wrap">
+    <h2 class="section-title reveal">Activities</h2>
+    <p class="activities-intro reveal">Beyond academics — community service, social initiatives, and volunteering.</p>
+    <div class="activities-grid">
+ 
+      <!-- 1 -->
+      <div class="activity-card reveal">
+        <div class="activity-photo-wrap">
+          <img src="assets/kanchana.jpg" alt="Lab In Cab Kanchana"
+               onerror="this.parentElement.style.display='none'">
+        </div>
+        <div class="activity-body">
+          <span class="activity-tag">🖥️ Outreach</span>
+          <h3>Lab In Cab — Kanchana School</h3>
+          <p>Actively participated in Lab in Cab at Kanchana Venkatasubrahmanyam Smaraka High School, teaching high school students about Cyber Crime awareness — sharing essential knowledge for today's digital world.</p>
+        </div>
       </div>
+ 
+      <!-- 2 -->
+      <div class="activity-card reveal">
+        <div class="activity-photo-wrap">
+          <img src="assets/nss.jpg" alt="Paddy Harvesting NSS"
+               onerror="this.parentElement.style.display='none'">
+        </div>
+        <div class="activity-body">
+          <span class="activity-tag">🌾 NSS</span>
+          <h3>Paddy Harvesting Program</h3>
+          <p>Participated in the Paddy Harvesting program held by the National Service Scheme (NSS) on behalf of the Computer Science Department.</p>
+        </div>
+      </div>
+ 
+      <!-- 3 -->
+      <div class="activity-card reveal">
+        <div class="activity-photo-wrap">
+          <img src="assets/schoolvisit.jpg" alt="School Visit"
+               onerror="this.parentElement.style.display='none'">
+        </div>
+        <div class="activity-body">
+          <span class="activity-tag">🏫 Visit</span>
+          <h3>School Visit</h3>
+          <p>Visited a school and introduced students to computer fundamentals and its diverse applications, also raising awareness about cyber crime and precautions. The programme was effective and pupils were quite engaged.</p>
+        </div>
+      </div>
+ 
+      <!-- 4 -->
+      <div class="activity-card reveal">
+        <div class="activity-photo-wrap">
+          <img src="assets/women.jpg" alt="State Level Seminar"
+               onerror="this.parentElement.style.display='none'">
+        </div>
+        <div class="activity-body">
+          <span class="activity-tag">👩 Seminar</span>
+          <h3>State Level Seminar — Volunteer</h3>
+          <p>Volunteered at the One Day State Level Seminar on "Investing in Women: Accelerating Action" jointly organised by the Women Grievance Redressal Cell, Internal Complaints Committee, and Women Development Cell.</p>
+        </div>
+      </div>
+ 
+      <!-- 5 -->
+      <div class="activity-card reveal">
+        <div class="activity-photo-wrap">
+          <img src="assets/sdmschool.jpg" alt="Lab In Cab SDM"
+               onerror="this.parentElement.style.display='none'">
+        </div>
+        <div class="activity-body">
+          <span class="activity-tag">🖥️ Outreach</span>
+          <h3>Lab In Cab — SDM School</h3>
+          <p>Participated in Lab in Cab at SDM English Medium School, sharing knowledge about Cyber Crime awareness with high school students — an essential topic in today's world.</p>
+        </div>
+      </div>
+ 
+      <!-- 6 -->
+      <div class="activity-card reveal">
+        <div class="activity-photo-wrap">
+          <img src="assets/css.jpg" alt="Prize by Department"
+               onerror="this.parentElement.style.display='none'">
+        </div>
+        <div class="activity-body">
+          <span class="activity-tag">🏅 Department</span>
+          <h3>Prize by Department</h3>
+          <p>Honoured with Best Library User Award in the Department of Computer Science and recognized as second class topper by the Department.</p>
+        </div>
+      </div>
+ 
+      <!-- 7 -->
+      <div class="activity-card reveal">
+        <div class="activity-photo-wrap">
+          <img src="assets/achiever.jpg" alt="Achiever's Day"
+               onerror="this.parentElement.style.display='none'">
+        </div>
+        <div class="activity-body">
+          <span class="activity-tag">🏆 Award</span>
+          <h3>Prize during Achiever's Day</h3>
+          <p>Recognized as Best Library User in the entire college for 2024–25 and awarded cash prize with certificate. Also recognized as Best Student Faculty and Second Topper in General Proficiency with cash prize.</p>
+        </div>
+      </div>
+ 
+      <!-- 8 -->
+      <div class="activity-card reveal">
+        <div class="activity-photo-wrap">
+          <img src="assets/cc.jpg" alt="SDM KalaVaibhava"
+               onerror="this.parentElement.style.display='none'">
+        </div>
+        <div class="activity-body">
+          <span class="activity-tag">🎭 Cultural</span>
+          <h3>SDM KalaVaibhava</h3>
+          <p>Actively participated in SDM Cultural Center, giving 8 shows throughout 1st year BCA — 5 at Dharwad, 1 at Dharmasthala, 1 at Aladangady, and 1 at Surya Temple.</p>
+        </div>
+      </div>
+ 
+      <!-- 9 -->
+      <div class="activity-card reveal">
+        <div class="activity-photo-wrap">
+          <img src="assets/fac.jpg" alt="Junior Faculty SDM"
+               onerror="this.parentElement.style.display='none'">
+        </div>
+        <div class="activity-body">
+          <span class="activity-tag">👩‍🏫 Mentorship</span>
+          <h3>Junior Faculty at SDM College</h3>
+          <p>Selected to teach and mentor juniors, conducting regular classes as a regular faculty member at SDM College, Ujire.</p>
+        </div>
+      </div>
+ 
     </div>
-
-   
+  </div>
+</section>
  
 
-  </div>
-</section>
-
-
-
-<section class="activities-section">
-
-  <div class="activities-card">
-
-    <img src="assets/activity.png" alt="Activities" class="activities-img">
-
-    <div class="activities-overlay">
-      <h3>Explore My Activities 🚀</h3>
-      <a href="extra.html" class="activities-btn">View Activities</a>
+  <!-- CODING -->
+  <section id="coding">
+    <div class="section-wrap">
+      <h2 class="section-title reveal">Coding Portfolio</h2>
+      <div class="coding-box reveal">
+        <p>Explore my coding projects and contributions — showcasing skills and passion for software development across platforms.</p>
+        <a href="https://codolio.com/profile/Shruthi18" target="_blank" class="btn-primary">
+          <i class="fa-solid fa-code"></i> View Coding Profile
+        </a>
+      </div>
     </div>
+  </section>
 
-  </div>
+  <!-- FOOTER -->
+  <footer>
+    <h2>Let's Connect 💫</h2>
+    <p class="footer-contact">
+      <i class="fa-solid fa-envelope"></i>&nbsp;
+      <a href="mailto:msshruthi432@gmail.com">msshruthi432@gmail.com</a>
+    </p>
+    <p class="footer-contact">
+      <i class="fa-solid fa-phone"></i>&nbsp; +91 7676841307
+    </p>
+    <div class="footer-socials">
+      <a href="https://github.com/MSShruthi18" target="_blank"><i class="fab fa-github"></i></a>
+      <a href="https://www.linkedin.com/in/msshruthi18/" target="_blank"><i class="fab fa-linkedin"></i></a>
+      <a href="mailto:msshruthi432@gmail.com"><i class="fa-solid fa-envelope"></i></a>
+    </div>
+    <p class="footer-thanks">Thank you for visiting my portfolio! I appreciate your time and hope you enjoyed exploring my work 💫</p>
+    <p class="footer-copy">© 2026 M S Shruthi. All rights reserved.</p>
+  </footer>
 
-</section>
-  <footer class="footer">
-    
-    <h2>Want to contact me?</h2>
-    <p>Reach me out via : <i class="fa-solid fa-envelope"></i> <a href="mailto:msshruthi432@gmail.com">msshruthi432@gmail.com</a></p>
-    <p>Contact Number : 91+ 7676841307</p>
-    <p class="thankyou-msg">Thank you for visiting my portfolio! I appreciate your time and hope you enjoyed exploring my work 💫</p>
-    <a href="https://github.com/MSShruthi18" target="_blank">
-        <i class="fab fa-github"></i> 
-      </a>|
-      <a href="https://www.linkedin.com/in/m-s-shruthi-31a2bb31a/" target="_blank">
-        <i class="fab fa-linkedin"></i> 
-      </a>|
-      <a href="mailto:msshruthi432@gmail.com" target="_blank"><i class="fa-solid fa-envelope"></i></a>  <br>
+  <script>
+    // Hamburger
+    const ham = document.getElementById('hamburger');
+    const navLinks = document.getElementById('navLinks');
+    ham.addEventListener('click', () => navLinks.classList.toggle('open'));
+    navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
 
-<div class="whatsapp-icon" onclick="openPopup()">
-  <i class="fab fa-whatsapp"></i>
-</div>
+    // Scroll reveal
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((e, i) => {
+        if (e.isIntersecting) {
+          setTimeout(() => e.target.classList.add('visible'), i * 80);
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    reveals.forEach(el => observer.observe(el));
 
-<!-- Popup -->
-<div class="popup" id="popup">
-  <div class="popup-box">
-    <span class="close-btn" onclick="closePopup()">✕</span>
-    <h3>Enter your name</h3>
-    <input type="text" id="name" placeholder="Your name">
-    <br>
-    <button onclick="goWhatsApp()">OK</button>
-  </div>
-</div>
-
-
-<div class="linkedin-icon" onclick="openLinkedInPopup()">
-  <i class="fab fa-linkedin"></i>
-</div>
-
-<!-- LinkedIn Popup -->
-<div class="popup" id="linkedinPopup">
-  <div class="popup-box">
-   <span class="close-btn" onclick="closeLinkedInPopup()">✕</span>
-    <h3>Enter your name</h3>
-    <input type="text" id="linkedinName" placeholder="Your name">
-    <br>
-    <button onclick="goLinkedIn()">OK</button>
-  </div>
-</div>
-
-
-
-
-      <p >@2025 M.S.Shruthi.All rights reserved.</p>
-</footer>
-  
-  
+    // Skill bars
+    const skillObs = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.querySelectorAll('.skill-fill').forEach(fill => {
+            fill.style.width = fill.dataset.w + '%';
+          });
+          skillObs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.3 });
+    const sg = document.getElementById('skillsGrid');
+    if (sg) skillObs.observe(sg);
+  </script>
 </body>
 </html>
